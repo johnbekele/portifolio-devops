@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Alex Chen | DevOps Engineer',
-  description: 'AWS-native DevOps Engineer specializing in cloud infrastructure, CI/CD pipelines, and infrastructure as code.',
+  title: 'Yohans (John) Bekele | Site Reliability Engineer & DevOps',
+  description: 'Site Reliability Engineer and DevOps professional with 4+ years experience in AWS cloud infrastructure, CI/CD pipelines, monitoring, and LLM applications. 99.8% uptime track record.',
   generator: 'v0.app',
   icons: {
     icon: [

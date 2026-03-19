@@ -2,39 +2,11 @@ import { Award, ExternalLink } from "lucide-react"
 
 const certifications = [
   {
-    title: "AWS Solutions Architect - Professional",
+    title: "AWS Certified Cloud Practitioner",
     issuer: "Amazon Web Services",
-    date: "2024",
-    credentialId: "AWS-SAP-12345",
-    url: "https://aws.amazon.com/certification/",
-  },
-  {
-    title: "AWS DevOps Engineer - Professional",
-    issuer: "Amazon Web Services",
-    date: "2023",
-    credentialId: "AWS-DOP-67890",
-    url: "https://aws.amazon.com/certification/",
-  },
-  {
-    title: "Certified Kubernetes Administrator (CKA)",
-    issuer: "Cloud Native Computing Foundation",
-    date: "2023",
-    credentialId: "CKA-2023-45678",
-    url: "https://www.cncf.io/certification/cka/",
-  },
-  {
-    title: "HashiCorp Certified: Terraform Associate",
-    issuer: "HashiCorp",
-    date: "2022",
-    credentialId: "TF-ASSOC-11111",
-    url: "https://www.hashicorp.com/certification/terraform-associate",
-  },
-  {
-    title: "AWS Solutions Architect - Associate",
-    issuer: "Amazon Web Services",
-    date: "2021",
-    credentialId: "AWS-SAA-22222",
-    url: "https://aws.amazon.com/certification/",
+    date: "Certified",
+    credentialId: "Verified",
+    url: "https://aws.amazon.com/certification/certified-cloud-practitioner/",
   },
 ]
 

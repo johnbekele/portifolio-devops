@@ -3,40 +3,40 @@ import { Badge } from "@/components/ui/badge"
 
 const experiences = [
   {
-    period: "2022 - PRESENT",
-    title: "Senior DevOps Engineer",
-    company: "CloudScale Inc",
-    url: "#",
+    period: "AUG 2024 - PRESENT",
+    title: "Service Reliability Engineer",
+    company: "Thomson Reuters",
+    url: "https://www.thomsonreuters.com",
     description:
-      "Lead cloud infrastructure initiatives for a platform serving 5M+ users. Architect and maintain Kubernetes clusters, implement GitOps workflows, and mentor junior engineers on AWS best practices.",
-    technologies: ["AWS", "Kubernetes", "Terraform", "ArgoCD", "Prometheus"],
+      "Achieved 99.8% system uptime through proactive monitoring, alert tuning, and anomaly detection. Automated daily monitoring and operational workflows using Python, Bash, and SQL scripts, reducing manual effort by 15+ hours/week. Managed incident response via ServiceNow and JIRA with root cause analysis.",
+    technologies: ["Python", "Bash", "SQL", "ServiceNow", "JIRA", "MS SQL Server", "PostgreSQL"],
   },
   {
-    period: "2020 - 2022",
-    title: "DevOps Engineer",
-    company: "TechFlow Solutions",
-    url: "#",
+    period: "AUG 2024 - PRESENT",
+    title: "DevOps Engineer (Internal Gig)",
+    company: "Thomson Reuters",
+    url: "https://www.thomsonreuters.com",
     description:
-      "Built and maintained CI/CD pipelines using Jenkins and GitHub Actions. Migrated legacy infrastructure to AWS, reducing costs by 35%. Implemented infrastructure as code using Terraform and CloudFormation.",
-    technologies: ["AWS", "Jenkins", "Docker", "Terraform", "CloudFormation"],
+      "Delivered end-to-end LLM applications on AWS utilizing ECS, Aurora RDS, DynamoDB, ElastiCache, Bedrock, and SageMaker. Designed IaC using Pulumi with Python. Built CI/CD pipelines with GitHub Actions and AWS CodeBuild with automated rollbacks.",
+    technologies: ["AWS", "Pulumi", "GitHub Actions", "ECS", "Bedrock", "SageMaker", "DynamoDB"],
   },
   {
-    period: "2018 - 2020",
-    title: "Cloud Engineer",
-    company: "DataStream Analytics",
-    url: "#",
+    period: "APR 2022 - JUN 2024",
+    title: "Application Support Analyst",
+    company: "Infosys",
+    url: "https://www.infosys.com",
     description:
-      "Managed AWS infrastructure for data processing pipelines. Automated deployment processes and monitoring solutions. Implemented security best practices and achieved SOC 2 compliance.",
-    technologies: ["AWS", "Python", "Ansible", "CloudWatch", "Lambda"],
+      "Monitored application performance using New Relic and Datadog. Reduced MTTR by 45% through efficient incident triage. Automated routine tasks improving team efficiency by 30%. Supported database migrations and created runbooks for incident response.",
+    technologies: ["New Relic", "Datadog", "Python", "Bash", "SQL", "PostgreSQL", "MySQL"],
   },
   {
-    period: "2016 - 2018",
-    title: "Systems Administrator",
-    company: "NetCore Systems",
-    url: "#",
+    period: "AUG 2022 - FEB 2023",
+    title: "Data Analytics / Migration Specialist",
+    company: "Cisco (Contract)",
+    url: "https://www.cisco.com",
     description:
-      "Administered Linux servers and network infrastructure. Introduced automation using Bash and Python scripts, reducing manual operations by 60%.",
-    technologies: ["Linux", "Bash", "Python", "Nginx", "MySQL"],
+      "Executed data migration projects, automating ETL processes improving efficiency by 30%. Developed data validation and cleansing routines. Built dashboards and analytical reports for business continuity and compliance.",
+    technologies: ["Python", "Bash", "SQL", "ETL", "Data Migration", "Analytics"],
   },
 ]
 

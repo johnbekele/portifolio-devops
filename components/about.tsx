@@ -15,7 +15,7 @@ export function About() {
           <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-background shadow-2xl">
             <Image
               src="/images/profile.jpg"
-              alt="Profile photo"
+              alt="Portrait of Yohans Bekele"
               fill
               className="object-cover"
               priority
@@ -29,34 +29,32 @@ export function About() {
       {/* Bio Text */}
       <div className="space-y-4 text-muted-foreground leading-relaxed">
         <p>
-          I&apos;m an{" "}
-          <span className="font-medium text-foreground">AWS Certified Solutions Architect</span> with expertise spanning{" "}
-          <span className="font-medium text-foreground">DevOps</span>,{" "}
-          <span className="font-medium text-foreground">Platform Engineering</span>, and{" "}
-          <span className="font-medium text-foreground">Site Reliability Engineering (SRE)</span>. 
-          I design and implement cloud-native solutions that are scalable, secure, and cost-optimized.
+          I&apos;m a results-driven{" "}
+          <span className="font-medium text-foreground">Site Reliability Engineer</span> and{" "}
+          <span className="font-medium text-foreground">DevOps professional</span> with 4 years of experience in
+          cloud infrastructure, application support, monitoring, incident management, and automation across enterprise systems.
         </p>
-        
+
         <p>
-          As a <span className="font-medium text-foreground">Platform Engineer</span>, I build internal developer platforms 
-          that accelerate software delivery. I create self-service infrastructure, golden paths, and 
-          tooling that empowers development teams to ship faster while maintaining security and compliance.
+          I have proven expertise in designing and deploying scalable cloud solutions on{" "}
+          <span className="font-medium text-foreground">AWS</span>, implementing{" "}
+          <span className="font-medium text-foreground">Infrastructure as Code (IaC)</span> with Pulumi and Terraform,
+          building robust <span className="font-medium text-foreground">CI/CD pipelines</span>, and ensuring production
+          reliability with <span className="font-medium text-foreground">99.8% uptime</span>.
         </p>
-        
+
         <p>
-          My <span className="font-medium text-foreground">SRE</span> background drives my focus on reliability and observability. 
-          I implement SLOs, error budgets, and incident management processes. I specialize in{" "}
-          <span className="font-medium text-foreground">Kubernetes</span>,{" "}
-          <span className="font-medium text-foreground">Terraform</span>,{" "}
-          <span className="font-medium text-foreground">CI/CD pipelines</span>, and{" "}
-          <span className="font-medium text-foreground">Infrastructure as Code</span>.
+          Currently delivering end-to-end{" "}
+          <span className="font-medium text-foreground">LLM applications on AWS</span> as part of DevOps engineering initiatives,
+          working with <span className="font-medium text-foreground">ECS, Aurora RDS, DynamoDB, Bedrock, SageMaker</span>, and
+          focusing on agentic LLM systems and production reliability engineering.
         </p>
-        
+
         <p>
-          I&apos;m passionate about{" "}
-          <span className="font-medium text-foreground">GitOps workflows</span>,{" "}
-          <span className="font-medium text-foreground">DevSecOps</span>, and building systems that are 
-          observable, maintainable, and resilient by design.
+          Strong background in{" "}
+          <span className="font-medium text-foreground">containerization</span> (Docker, Kubernetes),{" "}
+          <span className="font-medium text-foreground">monitoring & observability</span> (New Relic, Datadog, Prometheus),{" "}
+          <span className="font-medium text-foreground">automation scripting</span>, data migration, and cross-functional collaboration.
         </p>
       </div>
     </div>

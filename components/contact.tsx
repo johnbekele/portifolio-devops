@@ -26,9 +26,9 @@ export function Contact() {
 
       <div className="mb-8">
         <p className="text-muted-foreground leading-relaxed">
-          I&apos;m always interested in hearing about new opportunities, 
-          challenging projects, or just connecting with fellow DevOps 
-          enthusiasts. Feel free to reach out!
+          I&apos;m always interested in hearing about SRE/DevOps opportunities,
+          cloud infrastructure projects, or collaborating on LLM applications.
+          Based in Gdansk, Poland. Feel free to reach out!
         </p>
       </div>
 
@@ -94,20 +94,20 @@ export function Contact() {
         <h3 className="text-sm font-medium text-foreground mb-4">
           Or find me on
         </h3>
-        
-        <div className="flex items-center gap-4">
+
+        <div className="flex items-center gap-4 mb-4">
           <a
-            href="mailto:alex@example.com"
+            href="mailto:yohansdemisie@gmail.com"
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             <Mail className="h-4 w-4" />
-            alex@example.com
+            yohansdemisie@gmail.com
           </a>
         </div>
 
         <div className="flex items-center gap-6 mt-4">
           <a
-            href="https://github.com"
+            href="https://github.com/johnbekele"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
@@ -116,22 +116,13 @@ export function Contact() {
             <Github className="h-5 w-5" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/yohans-b-a1a975205/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
             aria-label="LinkedIn"
           >
             <Linkedin className="h-5 w-5" />
-          </a>
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary transition-colors"
-            aria-label="Twitter"
-          >
-            <Twitter className="h-5 w-5" />
           </a>
         </div>
       </div>
@@ -141,15 +132,7 @@ export function Contact() {
           Built with Next.js and Tailwind CSS. Deployed on Vercel.
         </p>
         <p className="mt-2">
-          Design inspired by{" "}
-          <a
-            href="https://brittanychiang.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-foreground hover:text-primary transition-colors"
-          >
-            Brittany Chiang
-          </a>
+          &copy; {new Date().getFullYear()} Yohans Bekele. All rights reserved.
         </p>
       </footer>
     </div>

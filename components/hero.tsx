@@ -10,26 +10,26 @@ export function Hero() {
           <Code2 className="h-6 w-6" />
         </div>
       </div>
-      
+
       <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-        Alex Chen
+        Yohans (John) Bekele
       </h1>
-      
+
       <h2 className="mt-3 text-lg font-medium text-primary">
-        DevOps Engineer | Platform Engineer | SRE
+        Site Reliability Engineer | DevOps Engineer
       </h2>
-      
+
       <p className="mt-2 text-sm font-medium text-accent">
-        AWS Certified Solutions Architect
+        AWS Certified Cloud Practitioner | 4+ Years Experience
       </p>
-      
+
       <p className="mt-4 max-w-xs leading-relaxed text-muted-foreground">
-        I build scalable cloud infrastructure, automate everything, and ensure systems are reliable, secure, and cost-efficient.
+        I build scalable cloud infrastructure on AWS, ensure 99.8% uptime, and deliver end-to-end LLM applications with robust CI/CD pipelines.
       </p>
 
       <div className="mt-8 flex items-center gap-5">
         <a
-          href="https://github.com"
+          href="https://github.com/johnbekele"
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground transition-colors hover:text-primary"
@@ -38,7 +38,7 @@ export function Hero() {
           <Github className="h-5 w-5" />
         </a>
         <a
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/in/yohans-b-a1a975205/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground transition-colors hover:text-primary"
@@ -47,7 +47,7 @@ export function Hero() {
           <Linkedin className="h-5 w-5" />
         </a>
         <a
-          href="mailto:alex@example.com"
+          href="mailto:yohansdemisie@gmail.com"
           className="text-muted-foreground transition-colors hover:text-primary"
           aria-label="Email"
         >
