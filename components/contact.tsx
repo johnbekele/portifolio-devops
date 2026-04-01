@@ -26,8 +26,8 @@ export function Contact() {
 
       <div className="mb-8">
         <p className="text-muted-foreground leading-relaxed">
-          I&apos;m always interested in hearing about SRE/DevOps opportunities,
-          cloud infrastructure projects, or collaborating on LLM applications.
+          I&apos;m always interested in hearing about SRE/DevOps, cloud infrastructure, and automation
+          opportunities, or collaborating on AI/LLM applications and full stack projects.
           Based in Gdansk, Poland. Feel free to reach out!
         </p>
       </div>

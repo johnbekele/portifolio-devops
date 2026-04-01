@@ -1,6 +1,6 @@
 "use client"
 
-import { Github, Linkedin, Mail, Code2 } from "lucide-react"
+import { Github, Linkedin, Mail, Code2, FileDown } from "lucide-react"
 
 export function Hero() {
   return (
@@ -16,7 +16,7 @@ export function Hero() {
       </h1>
 
       <h2 className="mt-3 text-lg font-medium text-primary">
-        Site Reliability Engineer | DevOps Engineer
+        Site Reliability Engineer | DevOps | Full Stack
       </h2>
 
       <p className="mt-2 text-sm font-medium text-accent">
@@ -24,10 +24,21 @@ export function Hero() {
       </p>
 
       <p className="mt-4 max-w-xs leading-relaxed text-muted-foreground">
-        I build scalable cloud infrastructure on AWS, ensure 99.8% uptime, and deliver end-to-end LLM applications with robust CI/CD pipelines.
+        I build cloud infrastructure from zero, deploy AI-powered microservices on AWS, and automate everything — 99.8% uptime, 20+ CI/CD pipelines, 863 commits on my latest project.
       </p>
 
-      <div className="mt-8 flex items-center gap-5">
+      <div className="mt-6">
+        <a
+          href="/Yohans_Bekele_Resume.pdf"
+          download
+          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        >
+          <FileDown className="h-4 w-4" />
+          Download Resume
+        </a>
+      </div>
+
+      <div className="mt-6 flex items-center gap-5">
         <a
           href="https://github.com/johnbekele"
           target="_blank"

@@ -3,22 +3,31 @@ import { Badge } from "@/components/ui/badge"
 
 const experiences = [
   {
-    period: "AUG 2024 - PRESENT",
-    title: "Service Reliability Engineer",
+    period: "DEC 2025 - PRESENT",
+    title: "AIOps Engineer (Internal Gig) — Project MAIA",
     company: "Thomson Reuters",
     url: "https://www.thomsonreuters.com",
     description:
-      "Achieved 99.8% system uptime through proactive monitoring, alert tuning, and anomaly detection. Automated daily monitoring and operational workflows using Python, Bash, and SQL scripts, reducing manual effort by 15+ hours/week. Managed incident response via ServiceNow and JIRA with root cause analysis.",
-    technologies: ["Python", "Bash", "SQL", "ServiceNow", "JIRA", "MS SQL Server", "PostgreSQL"],
+      "Built the entire AWS cloud infrastructure from zero for an enterprise M&A due diligence platform — 7 microservices (FastAPI + Next.js) on ECS Fargate across 4 environments. Designed IaC with Pulumi (Python) managing dual Aurora PostgreSQL databases, ElastiCache Redis, CloudFront CDN with WAF, and ALB with path-based routing. Authored 20+ GitHub Actions CI/CD workflows with production approval gates, security scanning, and automated release notes. Designed end-to-end security with data isolation, customer-managed KMS keys with envelope encryption, zero-trust S3 resource policies, WAFv2 in BLOCK mode, GuardDuty, Security Hub (CIS & AWS Best Practices), and per-service secret isolation. Deployed agentic AI services, conversational AI via Bedrock, and document processing with pgvector embeddings. 863 commits in 4 months.",
+    technologies: ["AWS ECS", "Pulumi", "GitHub Actions", "Aurora PostgreSQL", "CloudFront", "WAF", "Docker", "FastAPI", "Next.js"],
   },
   {
     period: "AUG 2024 - PRESENT",
-    title: "DevOps Engineer (Internal Gig)",
+    title: "Product Support Specialist",
     company: "Thomson Reuters",
     url: "https://www.thomsonreuters.com",
     description:
-      "Delivered end-to-end LLM applications on AWS utilizing ECS, Aurora RDS, DynamoDB, ElastiCache, Bedrock, and SageMaker. Designed IaC using Pulumi with Python. Built CI/CD pipelines with GitHub Actions and AWS CodeBuild with automated rollbacks.",
-    technologies: ["AWS", "Pulumi", "GitHub Actions", "ECS", "Bedrock", "SageMaker", "DynamoDB"],
+      "Supporting the TAP UK digital application — monitoring application health, diagnosing issues across Azure and on-prem Windows Server environments, and debugging Microsoft SQL Server databases. Built KB Hub, an AI-powered RAG tool that ingests knowledge base resources from multiple data sources to surface precise resolutions, integrated across applications as a debugging tool. Automated cache cleaning, registry cleanup, database reindexing, and server diagnostics. Managed database migrations, on-prem server setup, and maintained 99.8% uptime through proactive monitoring and incident response via ServiceNow and JIRA.",
+    technologies: ["Python", "Azure", "Windows Server", "MS SQL Server", "RAG", "ServiceNow", "JIRA", "Bash", "Automation"],
+  },
+  {
+    period: "JUL 2024 - PRESENT",
+    title: "Freelance Full Stack Developer",
+    company: "Upwork",
+    url: "https://www.upwork.com",
+    description:
+      "Built and delivered end-to-end web applications for clients including an enterprise room rental platform (Pokojowo), AI-powered trading platform (Wise-Trade), law firm case management system (LawConnect), agricultural machinery rental marketplace (AgroTech), and an AI teaching assistant (TeacherBot). Developed responsive frontends with React and Next.js, built RESTful APIs with Node.js/Express and Python/FastAPI, and containerized applications with Docker.",
+    technologies: ["React", "Next.js", "TypeScript", "Node.js", "FastAPI", "Python", "MongoDB", "PostgreSQL", "Docker", "Tailwind CSS"],
   },
   {
     period: "APR 2022 - JUN 2024",
@@ -26,8 +35,8 @@ const experiences = [
     company: "Infosys",
     url: "https://www.infosys.com",
     description:
-      "Monitored application performance using New Relic and Datadog. Reduced MTTR by 45% through efficient incident triage. Automated routine tasks improving team efficiency by 30%. Supported database migrations and created runbooks for incident response.",
-    technologies: ["New Relic", "Datadog", "Python", "Bash", "SQL", "PostgreSQL", "MySQL"],
+      "Monitored application performance and infrastructure health using New Relic and Datadog, tracking metrics, logs, events, and traces across distributed systems to ensure high availability and SLA compliance. Managed incident triage, event correlation, and escalation via ServiceNow and JIRA, reducing mean time to resolution (MTTR) by 45% through signal enrichment and actionable alerting. Automated routine operational tasks, health checks, and reporting with Python, Bash, and SQL scripts, improving team efficiency by 30%. Built custom dashboards for anomaly detection and proactive alerting to surface issues before customer impact. Supported database migrations and integrity verification across MS SQL Server, PostgreSQL, and MySQL production environments. Created runbooks and automated remediation scripts for incident response procedures, enabling faster recovery and reduced human intervention. Collaborated with development and infrastructure teams to implement observability solutions, reduce alert noise, and improve system reliability.",
+    technologies: ["New Relic", "Datadog", "Python", "Bash", "SQL", "PostgreSQL", "MySQL", "ServiceNow", "JIRA", "Observability"],
   },
   {
     period: "AUG 2022 - FEB 2023",
@@ -35,8 +44,8 @@ const experiences = [
     company: "Cisco (Contract)",
     url: "https://www.cisco.com",
     description:
-      "Executed data migration projects, automating ETL processes improving efficiency by 30%. Developed data validation and cleansing routines. Built dashboards and analytical reports for business continuity and compliance.",
-    technologies: ["Python", "Bash", "SQL", "ETL", "Data Migration", "Analytics"],
+      "Executed large-scale data migration and transformation projects across multiple source systems, automating ETL pipelines using Python, Bash, and SQL, improving data processing efficiency by 30%. Designed data validation and cleansing routines to ensure accuracy, consistency, and compliance during migrations. Built data ingestion pipelines that normalized and enriched datasets from heterogeneous sources. Created dashboards and analytical reports providing actionable insights on migrated datasets for business continuity and compliance. Authored technical documentation and best practices guides for migration workflows and automation scripts. Collaborated with cross-functional teams to ensure seamless data integration with minimal disruption to business operations.",
+    technologies: ["Python", "Bash", "SQL", "ETL Pipelines", "Data Migration", "Data Validation", "Analytics", "Documentation"],
   },
 ]
 
@@ -98,7 +107,8 @@ export function Experience() {
 
       <div className="mt-12">
         <a
-          href="/resume.pdf"
+          href="/Yohans_Bekele_Resume.pdf"
+          download
           className="inline-flex items-center font-medium text-foreground hover:text-primary transition-colors group"
         >
           View Full Resume

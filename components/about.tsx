@@ -29,32 +29,46 @@ export function About() {
       {/* Bio Text */}
       <div className="space-y-4 text-muted-foreground leading-relaxed">
         <p>
-          I&apos;m a results-driven{" "}
-          <span className="font-medium text-foreground">Site Reliability Engineer</span> and{" "}
-          <span className="font-medium text-foreground">DevOps professional</span> with 4 years of experience in
-          cloud infrastructure, application support, monitoring, incident management, and automation across enterprise systems.
+          I&apos;m an{" "}
+          <span className="font-medium text-foreground">AIOps Engineer</span>,{" "}
+          <span className="font-medium text-foreground">Product Support Specialist</span>, and{" "}
+          <span className="font-medium text-foreground">Full Stack Developer</span> with 4+ years of experience in
+          cloud infrastructure, AI/ML systems, application support, security engineering, and building production systems end-to-end.
         </p>
 
         <p>
-          I have proven expertise in designing and deploying scalable cloud solutions on{" "}
-          <span className="font-medium text-foreground">AWS</span>, implementing{" "}
-          <span className="font-medium text-foreground">Infrastructure as Code (IaC)</span> with Pulumi and Terraform,
-          building robust <span className="font-medium text-foreground">CI/CD pipelines</span>, and ensuring production
-          reliability with <span className="font-medium text-foreground">99.8% uptime</span>.
+          As an AIOps Engineer at Thomson Reuters, I built the{" "}
+          <span className="font-medium text-foreground">entire AWS infrastructure from zero</span> for an enterprise M&amp;A
+          platform — 7 microservices on ECS Fargate, dual Aurora PostgreSQL databases, CloudFront with WAF, and{" "}
+          <span className="font-medium text-foreground">20+ CI/CD pipelines</span> with production approval gates and
+          security scanning. I designed{" "}
+          <span className="font-medium text-foreground">end-to-end security</span> with data isolation, customer-managed
+          KMS keys with envelope encryption, zero-trust S3 resource policies, WAFv2 in BLOCK mode, GuardDuty, and Security Hub
+          compliance (CIS &amp; AWS Best Practices). The platform includes{" "}
+          <span className="font-medium text-foreground">agentic AI services</span> powered by Claude via Bedrock,
+          document processing with <span className="font-medium text-foreground">pgvector embeddings</span>,
+          and a knowledge graph pipeline. 863 commits in 4 months.
         </p>
 
         <p>
-          Currently delivering end-to-end{" "}
-          <span className="font-medium text-foreground">LLM applications on AWS</span> as part of DevOps engineering initiatives,
-          working with <span className="font-medium text-foreground">ECS, Aurora RDS, DynamoDB, Bedrock, SageMaker</span>, and
-          focusing on agentic LLM systems and production reliability engineering.
+          As a Product Support Specialist, I support the{" "}
+          <span className="font-medium text-foreground">TAP UK digital application</span> — monitoring application health,
+          diagnosing issues across Azure and on-prem Windows Server environments, and debugging Microsoft SQL Server databases.
+          I write automation scripts for cache cleaning, registry cleanup, database reindexing, and server diagnostics.
+          I built <span className="font-medium text-foreground">KB Hub</span>, an AI-powered internal tool using{" "}
+          <span className="font-medium text-foreground">RAG pipelines</span> to ingest knowledge base resources from
+          multiple data sources and surface precise resolutions — integrated across applications as a debugging and support tool.
+          I also handle database migrations, on-prem server setup, and maintain{" "}
+          <span className="font-medium text-foreground">99.8% uptime</span> through proactive monitoring and incident
+          response via ServiceNow and JIRA.
         </p>
 
         <p>
-          Strong background in{" "}
-          <span className="font-medium text-foreground">containerization</span> (Docker, Kubernetes),{" "}
-          <span className="font-medium text-foreground">monitoring & observability</span> (New Relic, Datadog, Prometheus),{" "}
-          <span className="font-medium text-foreground">automation scripting</span>, data migration, and cross-functional collaboration.
+          I also freelance as a full stack developer on Upwork, building web applications with{" "}
+          <span className="font-medium text-foreground">React, Next.js, Node.js, FastAPI</span>, and{" "}
+          <span className="font-medium text-foreground">Python</span>. I built{" "}
+          <span className="font-medium text-foreground">InfraCanvas</span> — a visual AWS infrastructure designer
+          that generates IaC code with GitHub integration.
         </p>
       </div>
     </div>
