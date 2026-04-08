@@ -107,7 +107,7 @@ export function Experience() {
 
       <div className="mt-12">
         <a
-          href="/Yohans_Bekele_Resume.pdf"
+          href="/Yohans_Bekele_Resume_AIOps.pdf"
           download
           className="inline-flex items-center font-medium text-foreground hover:text-primary transition-colors group"
         >
