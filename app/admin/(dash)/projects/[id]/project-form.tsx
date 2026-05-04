@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { FormField, FormSection, FormActions } from "@/components/admin/form-field"
 import { MultiImageUploader, type ProjectImage } from "@/components/admin/multi-image-uploader"
+import { RichTextField } from "@/components/admin/rich-text-field"
 import { upsertProject } from "@/lib/actions/projects"
 import type { Project } from "@/db/schema"
 
@@ -177,15 +178,16 @@ export function ProjectForm({ item }: ProjectFormProps) {
         <FormField
           label="Long description"
           htmlFor="longDescription"
-          hint='Shown in the project modal. Blank lines = new paragraph, "- " = bullet, **text** = bold.'
+          hint='Shown in the project modal. Blank lines = new paragraph, "- " = bullet, **text** = bold. Reformat with AI also works.'
         >
-          <Textarea
+          <RichTextField
             id="longDescription"
             name="longDescription"
             rows={10}
             value={longDescription}
-            onChange={(e) => setLongDescription(e.target.value)}
+            onChange={setLongDescription}
             required
+            reformatKind="project-long"
           />
         </FormField>
 

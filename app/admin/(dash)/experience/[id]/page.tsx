@@ -4,9 +4,9 @@ import { eq } from "drizzle-orm"
 import { db } from "@/db"
 import { experiences } from "@/db/schema"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { FormField, FormSection, FormActions } from "@/components/admin/form-field"
+import { RichTextField } from "@/components/admin/rich-text-field"
 import { upsertExperience } from "@/lib/actions/experiences"
 import { ArrowLeft } from "lucide-react"
 
@@ -89,14 +89,15 @@ export default async function ExperienceEditPage({ params }: PageProps) {
           <FormField
             label="Description"
             htmlFor="description"
-            hint='Use blank lines to separate paragraphs, "- " for bullet points, **text** for bold. Keep paragraphs short — 2-3 sentences each reads best.'
+            hint='Use blank lines to separate paragraphs, "- " for bullets, **text** for bold. Or click Reformat with AI to do it for you.'
           >
-            <Textarea
+            <RichTextField
               id="description"
               name="description"
-              rows={12}
               defaultValue={item?.description ?? ""}
+              rows={12}
               required
+              reformatKind="experience"
             />
           </FormField>
 
