@@ -5,7 +5,13 @@ import { reformatText, type ReformatKind } from "@/lib/ai/text-reformat"
 export const runtime = "nodejs"
 export const maxDuration = 60
 
-const ALLOWED_KINDS: ReformatKind[] = ["experience", "project-long"]
+const ALLOWED_KINDS: ReformatKind[] = [
+  "experience",
+  "project-long",
+  "about-paragraph",
+  "hero-tagline",
+  "hero-blurb",
+]
 
 export async function POST(req: Request) {
   const session = await auth()

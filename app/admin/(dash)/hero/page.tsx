@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { FormField, FormSection, FormActions } from "@/components/admin/form-field"
+import { RichTextField } from "@/components/admin/rich-text-field"
 import { HeroProfileImageField } from "./profile-image-field"
 import { getHero } from "@/lib/data/hero"
 import { saveHero } from "@/lib/actions/hero"
@@ -42,7 +42,14 @@ export default async function HeroAdminPage({ searchParams }: HeroAdminProps) {
           </FormField>
 
           <FormField label="Tagline" htmlFor="tagline" hint="Short pitch shown under your name.">
-            <Textarea id="tagline" name="tagline" rows={3} defaultValue={data?.tagline ?? ""} />
+            <RichTextField
+              id="tagline"
+              name="tagline"
+              rows={3}
+              defaultValue={data?.tagline ?? ""}
+              reformatKind="hero-tagline"
+              buttonLabel="Polish with AI"
+            />
           </FormField>
 
           <FormField label="Resume URL" htmlFor="resumeUrl">
@@ -70,7 +77,14 @@ export default async function HeroAdminPage({ searchParams }: HeroAdminProps) {
           </FormField>
 
           <FormField label="Contact blurb" htmlFor="contactBlurb" hint="Intro paragraph at the top of Contact.">
-            <Textarea id="contactBlurb" name="contactBlurb" rows={3} defaultValue={data?.contactBlurb ?? ""} />
+            <RichTextField
+              id="contactBlurb"
+              name="contactBlurb"
+              rows={4}
+              defaultValue={data?.contactBlurb ?? ""}
+              reformatKind="hero-blurb"
+              buttonLabel="Polish with AI"
+            />
           </FormField>
         </FormSection>
 

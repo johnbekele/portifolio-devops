@@ -1,6 +1,11 @@
 import Anthropic from "@anthropic-ai/sdk"
 
-export type ReformatKind = "experience" | "project-long"
+export type ReformatKind =
+  | "experience"
+  | "project-long"
+  | "about-paragraph"
+  | "hero-tagline"
+  | "hero-blurb"
 
 const PROMPTS: Record<ReformatKind, string> = {
   experience: `You reformat a portfolio "Experience" description for readability.
@@ -28,6 +33,32 @@ Rules:
 - Use **bold** sparingly (1-3 times) for key numbers or technologies.
 - Total length under ~150 words.
 - No markdown headings, no emoji.
+- Output ONLY via the reformat tool.`,
+  "about-paragraph": `You polish a single paragraph from a portfolio "About" section.
+
+Rules:
+- Keep ALL of the engineer's facts, numbers, and technologies. Do not invent or drop content.
+- Keep first-person voice and the engineer's casual-but-confident tone.
+- Tighten verbose phrasing without making it generic. Cut filler words.
+- Use **bold** sparingly (1-3 times per paragraph) on the most concrete facts: numbers, key technologies, scale.
+- Output is one cohesive paragraph (no bullets, no headings). Length similar to the input or slightly shorter.
+- No emoji. No introductions.
+- Output ONLY via the reformat tool.`,
+  "hero-tagline": `You polish the hero tagline of a portfolio site.
+
+Rules:
+- One sentence, max ~30 words, max 2 lines on a normal screen.
+- Punchy and concrete: lead with what the engineer ships, back it with a number or signature technology.
+- Keep first-person voice. No emoji, no marketing fluff, no "passionate".
+- Keep all of the engineer's actual facts/numbers from the input. Do not invent metrics.
+- Output ONLY via the reformat tool.`,
+  "hero-blurb": `You polish the short blurb shown above the contact form on a portfolio.
+
+Rules:
+- 2-3 short sentences, max ~60 words.
+- Welcoming and specific: what kinds of opportunities the engineer is interested in.
+- Keep first-person voice. No emoji.
+- Keep concrete facts (location, focus areas) from the input. Do not invent.
 - Output ONLY via the reformat tool.`,
 }
 

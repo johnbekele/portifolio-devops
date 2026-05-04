@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { FormField } from "@/components/admin/form-field"
+import { RichTextField } from "@/components/admin/rich-text-field"
 import { Trash2, Plus } from "lucide-react"
 import { getAboutParagraphs } from "@/lib/data/about"
 import { upsertAboutParagraph, deleteAboutParagraph } from "@/lib/actions/about"
@@ -35,12 +35,14 @@ export default async function AboutAdminPage() {
               </FormField>
             </div>
             <FormField label="Content" htmlFor={`content-${p.id}`}>
-              <Textarea
+              <RichTextField
                 id={`content-${p.id}`}
                 name="content"
                 rows={5}
                 defaultValue={p.content}
                 required
+                reformatKind="about-paragraph"
+                buttonLabel="Polish with AI"
               />
             </FormField>
             <div className="flex items-center justify-between">
@@ -72,7 +74,14 @@ export default async function AboutAdminPage() {
             </FormField>
           </div>
           <FormField label="Content" htmlFor="new-content">
-            <Textarea id="new-content" name="content" rows={5} required />
+            <RichTextField
+              id="new-content"
+              name="content"
+              rows={5}
+              required
+              reformatKind="about-paragraph"
+              buttonLabel="Polish with AI"
+            />
           </FormField>
           <Button type="submit" size="sm">Add paragraph</Button>
         </form>

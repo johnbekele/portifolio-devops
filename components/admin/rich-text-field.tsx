@@ -10,7 +10,13 @@ type Common = {
   name: string
   rows?: number
   required?: boolean
-  reformatKind: "experience" | "project-long"
+  reformatKind:
+    | "experience"
+    | "project-long"
+    | "about-paragraph"
+    | "hero-tagline"
+    | "hero-blurb"
+  buttonLabel?: string
 }
 
 type Uncontrolled = Common & { defaultValue?: string; value?: never; onChange?: never }
@@ -73,12 +79,12 @@ export function RichTextField(props: RichTextFieldProps) {
           {busy ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Reformatting...
+              Working...
             </>
           ) : (
             <>
               <Sparkles className="mr-2 h-4 w-4" />
-              Reformat with AI
+              {props.buttonLabel ?? "Reformat with AI"}
             </>
           )}
         </Button>

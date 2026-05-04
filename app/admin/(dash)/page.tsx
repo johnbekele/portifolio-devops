@@ -8,6 +8,7 @@ import {
   Award,
   ArrowRight,
 } from "lucide-react"
+import { SiteReviewPanel } from "./site-review-panel"
 
 const tiles = [
   { href: "/admin/hero", label: "Hero", icon: User, desc: "Name, title, links, profile photo" },
@@ -44,6 +45,10 @@ export default function AdminDashboard() {
             <p className="text-sm text-muted-foreground">{t.desc}</p>
           </Link>
         ))}
+      </div>
+
+      <div className="mt-10">
+        <SiteReviewPanel />
       </div>
     </div>
   )
