@@ -86,11 +86,15 @@ export default async function ExperienceEditPage({ params }: PageProps) {
             <Input id="url" name="url" type="url" defaultValue={item?.url ?? ""} required />
           </FormField>
 
-          <FormField label="Description" htmlFor="description">
+          <FormField
+            label="Description"
+            htmlFor="description"
+            hint='Use blank lines to separate paragraphs, "- " for bullet points, **text** for bold. Keep paragraphs short — 2-3 sentences each reads best.'
+          >
             <Textarea
               id="description"
               name="description"
-              rows={8}
+              rows={12}
               defaultValue={item?.description ?? ""}
               required
             />

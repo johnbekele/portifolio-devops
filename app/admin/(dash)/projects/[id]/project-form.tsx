@@ -174,11 +174,15 @@ export function ProjectForm({ item }: ProjectFormProps) {
           />
         </FormField>
 
-        <FormField label="Long description" htmlFor="longDescription" hint="Full text shown in the modal.">
+        <FormField
+          label="Long description"
+          htmlFor="longDescription"
+          hint='Shown in the project modal. Blank lines = new paragraph, "- " = bullet, **text** = bold.'
+        >
           <Textarea
             id="longDescription"
             name="longDescription"
-            rows={8}
+            rows={10}
             value={longDescription}
             onChange={(e) => setLongDescription(e.target.value)}
             required

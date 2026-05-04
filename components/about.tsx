@@ -1,26 +1,11 @@
 import Image from "next/image"
 import type { AboutParagraph } from "@/db/schema"
+import { renderRichText } from "@/lib/text"
 
 interface AboutProps {
   paragraphs: AboutParagraph[]
   name: string
   profileImageUrl: string
-}
-
-// Renders **bold** segments inside a paragraph string. Keeps it simple — no full
-// markdown parser, just the one inline marker we use.
-function renderInlineBold(text: string): React.ReactNode[] {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g)
-  return parts.map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return (
-        <span key={i} className="font-medium text-foreground">
-          {part.slice(2, -2)}
-        </span>
-      )
-    }
-    return <span key={i}>{part}</span>
-  })
 }
 
 export function About({ paragraphs, name, profileImageUrl }: AboutProps) {
@@ -48,7 +33,7 @@ export function About({ paragraphs, name, profileImageUrl }: AboutProps) {
 
       <div className="space-y-4 text-muted-foreground leading-relaxed">
         {paragraphs.map((p) => (
-          <p key={p.id}>{renderInlineBold(p.content)}</p>
+          <div key={p.id}>{renderRichText(p.content)}</div>
         ))}
       </div>
     </div>

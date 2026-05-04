@@ -22,8 +22,12 @@ Given screenshots of a project and a few freeform notes, return a JSON object th
 Rules:
 - Write in confident first-person past tense, like the engineer himself wrote it.
 - Be specific. Mention concrete technologies, scale numbers, and what the user did — not vague hype.
-- "description" is one tight sentence (max ~30 words) shown in the project list.
-- "longDescription" is a 3-6 sentence paragraph shown in the project modal. Cover what it does, the stack, and one or two engineering details that would impress another senior engineer.
+- "description" is one tight sentence (max ~30 words) shown in the project list. Plain text, no formatting.
+- "longDescription" is shown in the project modal. Format it for readability:
+    * A short opening paragraph (1-2 sentences, what the project is).
+    * Then a blank line and a bulleted list (lines starting with "- ") covering the stack and 2-4 engineering details that would impress another senior engineer.
+    * Use **bold** sparingly to highlight key numbers or technologies.
+    * Keep total length under ~150 words.
 - "technologies" is a deduped array of short labels (e.g. "Next.js", "AWS Lambda", "Postgres"). 4-10 items.
 - "category" must be exactly one of: "devops" (infra, IaC, CI/CD, observability tools), "fullstack" (web/mobile apps with both frontend and backend), "llm" (AI/LLM-powered apps).
 - Never invent github_url or demo_url; the engineer fills those.

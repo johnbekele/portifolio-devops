@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } fr
 import { Button } from "@/components/ui/button"
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 import type { Project } from "@/db/schema"
+import { renderRichText } from "@/lib/text"
 
 type ProjectCategory = "all" | "devops" | "fullstack" | "llm"
 
@@ -346,9 +347,9 @@ export function Projects({ projects }: ProjectsProps) {
                   </div>
                 </div>
 
-                <p className="mt-4 text-muted-foreground leading-relaxed">
-                  {selectedProject.longDescription}
-                </p>
+                <div className="mt-4 text-muted-foreground leading-relaxed">
+                  {renderRichText(selectedProject.longDescription)}
+                </div>
 
                 <div className="mt-6">
                   <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground mb-3">

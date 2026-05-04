@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import type { Experience as ExperienceData } from "@/db/schema"
+import { renderRichText } from "@/lib/text"
 
 interface ExperienceProps {
   experiences: ExperienceData[]
@@ -43,7 +44,9 @@ export function Experience({ experiences, resumeUrl }: ExperienceProps) {
                 </a>
               </h3>
 
-              <p className="mt-2 text-sm leading-normal text-muted-foreground">{exp.description}</p>
+              <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {renderRichText(exp.description)}
+              </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
                 {exp.technologies.map((tech) => (
