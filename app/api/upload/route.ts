@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { auth, isAdminEmail } from "@/lib/auth"
-import { uploadFile } from "@/lib/blob"
+import { uploadFile, hasBlobToken } from "@/lib/blob"
 
 export const runtime = "nodejs"
 
@@ -22,12 +22,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "File too large (max 8MB)" }, { status: 413 })
   }
 
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    console.error("upload: BLOB_READ_WRITE_TOKEN env var is not set")
+  if (!hasBlobToken()) {
+    console.error("upload: no BLOB*_READ_WRITE_TOKEN env var found")
     return NextResponse.json(
       {
         error:
-          "Storage not configured: BLOB_READ_WRITE_TOKEN is missing. Add it to your Vercel project env vars (Storage → Blob).",
+          "Storage not configured: no BLOB_READ_WRITE_TOKEN (or BLOB1_/BLOB2_) env var found. Connect a Blob store in Vercel → Storage.",
       },
       { status: 500 },
     )
