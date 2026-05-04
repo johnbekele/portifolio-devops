@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { Sparkles, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
@@ -16,12 +17,51 @@ const CATEGORIES = [
   { value: "llm", label: "AI / LLM" },
 ] as const
 
+type Category = (typeof CATEGORIES)[number]["value"]
+
 interface ProjectFormProps {
   item: Project | null
 }
 
 export function ProjectForm({ item }: ProjectFormProps) {
   const [images, setImages] = useState<ProjectImage[]>(item?.images ?? [])
+  const [title, setTitle] = useState(item?.title ?? "")
+  const [category, setCategory] = useState<Category>(item?.category ?? "fullstack")
+  const [description, setDescription] = useState(item?.description ?? "")
+  const [longDescription, setLongDescription] = useState(item?.longDescription ?? "")
+  const [technologies, setTechnologies] = useState(item?.technologies?.join(", ") ?? "")
+
+  const [aiNotes, setAiNotes] = useState("")
+  const [aiBusy, setAiBusy] = useState(false)
+  const [aiError, setAiError] = useState<string | null>(null)
+
+  async function generateWithAI() {
+    setAiBusy(true)
+    setAiError(null)
+    try {
+      const res = await fetch("/api/admin/generate-project", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imageUrls: images.map((img) => img.src),
+          notes: aiNotes,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? "Generation failed")
+      setTitle(data.title)
+      setCategory(data.category)
+      setDescription(data.description)
+      setLongDescription(data.longDescription)
+      setTechnologies(
+        Array.isArray(data.technologies) ? data.technologies.join(", ") : "",
+      )
+    } catch (err) {
+      setAiError(err instanceof Error ? err.message : "Generation failed")
+    } finally {
+      setAiBusy(false)
+    }
+  }
 
   return (
     <form action={upsertProject}>
@@ -31,13 +71,19 @@ export function ProjectForm({ item }: ProjectFormProps) {
       <FormSection>
         <div className="grid grid-cols-3 gap-4">
           <FormField label="Sort order" htmlFor="sortOrder">
-            <Input id="sortOrder" name="sortOrder" type="number" defaultValue={item?.sortOrder ?? 0} />
+            <Input
+              id="sortOrder"
+              name="sortOrder"
+              type="number"
+              defaultValue={item?.sortOrder ?? 0}
+            />
           </FormField>
           <FormField label="Category" htmlFor="category">
             <select
               id="category"
               name="category"
-              defaultValue={item?.category ?? "fullstack"}
+              value={category}
+              onChange={(e) => setCategory(e.target.value as Category)}
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {CATEGORIES.map((c) => (
@@ -69,8 +115,52 @@ export function ProjectForm({ item }: ProjectFormProps) {
           </div>
         </div>
 
+        <FormField label="Images">
+          <MultiImageUploader value={images} onChange={setImages} prefix="projects" />
+        </FormField>
+
+        <div className="rounded-lg border border-dashed border-primary/40 bg-primary/5 p-4 space-y-3">
+          <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+            <Sparkles className="h-4 w-4 text-primary" />
+            Generate fields with Claude
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Upload screenshots above, drop a few notes below, then let Claude fill out the rest.
+            You can edit anything before saving.
+          </p>
+          <Textarea
+            value={aiNotes}
+            onChange={(e) => setAiNotes(e.target.value)}
+            rows={3}
+            placeholder="e.g. AWS infra designer that exports Terraform/Pulumi. Built solo. Next.js + React Flow + Lambda. Shipped to demo at infracanvas.app."
+            className="bg-background"
+          />
+          <div className="flex items-center gap-3">
+            <Button type="button" onClick={generateWithAI} disabled={aiBusy} size="sm">
+              {aiBusy ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  Generate with AI
+                </>
+              )}
+            </Button>
+            {aiError && <p className="text-xs text-destructive">{aiError}</p>}
+          </div>
+        </div>
+
         <FormField label="Title" htmlFor="title">
-          <Input id="title" name="title" defaultValue={item?.title ?? ""} required />
+          <Input
+            id="title"
+            name="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </FormField>
 
         <FormField label="Short description" htmlFor="description" hint="One-liner shown in the list.">
@@ -78,7 +168,8 @@ export function ProjectForm({ item }: ProjectFormProps) {
             id="description"
             name="description"
             rows={3}
-            defaultValue={item?.description ?? ""}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             required
           />
         </FormField>
@@ -88,7 +179,8 @@ export function ProjectForm({ item }: ProjectFormProps) {
             id="longDescription"
             name="longDescription"
             rows={8}
-            defaultValue={item?.longDescription ?? ""}
+            value={longDescription}
+            onChange={(e) => setLongDescription(e.target.value)}
             required
           />
         </FormField>
@@ -97,7 +189,8 @@ export function ProjectForm({ item }: ProjectFormProps) {
           <Input
             id="technologies"
             name="technologies"
-            defaultValue={item?.technologies?.join(", ") ?? ""}
+            value={technologies}
+            onChange={(e) => setTechnologies(e.target.value)}
           />
         </FormField>
 
@@ -109,10 +202,6 @@ export function ProjectForm({ item }: ProjectFormProps) {
             <Input id="demoUrl" name="demoUrl" type="url" defaultValue={item?.demoUrl ?? ""} />
           </FormField>
         </div>
-
-        <FormField label="Images">
-          <MultiImageUploader value={images} onChange={setImages} prefix="projects" />
-        </FormField>
       </FormSection>
 
       <FormActions>
