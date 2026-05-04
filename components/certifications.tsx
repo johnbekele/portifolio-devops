@@ -1,16 +1,11 @@
 import { Award, ExternalLink } from "lucide-react"
+import type { Certification } from "@/db/schema"
 
-const certifications = [
-  {
-    title: "AWS Certified Cloud Practitioner",
-    issuer: "Amazon Web Services",
-    date: "Certified",
-    credentialId: "Verified",
-    url: "https://aws.amazon.com/certification/certified-cloud-practitioner/",
-  },
-]
+interface CertificationsProps {
+  certifications: Certification[]
+}
 
-export function Certifications() {
+export function Certifications({ certifications }: CertificationsProps) {
   return (
     <div>
       <h2 className="text-sm font-semibold uppercase tracking-widest text-primary mb-8 lg:hidden">
@@ -18,9 +13,9 @@ export function Certifications() {
       </h2>
 
       <div className="space-y-4">
-        {certifications.map((cert, index) => (
+        {certifications.map((cert) => (
           <a
-            key={index}
+            key={cert.id}
             href={cert.url}
             target="_blank"
             rel="noopener noreferrer"
@@ -37,11 +32,9 @@ export function Certifications() {
                 </h3>
                 <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              
-              <p className="text-sm text-muted-foreground mt-1">
-                {cert.issuer}
-              </p>
-              
+
+              <p className="text-sm text-muted-foreground mt-1">{cert.issuer}</p>
+
               <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
                 <span>{cert.date}</span>
                 <span className="text-border">|</span>

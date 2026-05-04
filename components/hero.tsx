@@ -1,8 +1,22 @@
-"use client"
-
 import { Github, Linkedin, Mail, Code2, FileDown } from "lucide-react"
+import type { Hero as HeroData } from "@/db/schema"
 
-export function Hero() {
+interface HeroProps {
+  data: HeroData | null
+}
+
+export function Hero({ data }: HeroProps) {
+  if (!data) {
+    return (
+      <div>
+        <h1 className="text-4xl font-bold tracking-tight text-foreground">No content yet</h1>
+        <p className="mt-2 text-muted-foreground">
+          Run the seed script or sign in to /admin to add content.
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div>
       <div className="flex items-center gap-3 mb-4">
@@ -12,24 +26,18 @@ export function Hero() {
       </div>
 
       <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-        Yohans (John) Bekele
+        {data.name}
       </h1>
 
-      <h2 className="mt-3 text-lg font-medium text-primary">
-        Site Reliability Engineer | DevOps | Full Stack
-      </h2>
+      <h2 className="mt-3 text-lg font-medium text-primary">{data.title}</h2>
 
-      <p className="mt-2 text-sm font-medium text-accent">
-        AWS Certified Cloud Practitioner | 4+ Years Experience
-      </p>
+      <p className="mt-2 text-sm font-medium text-accent">{data.subtitle}</p>
 
-      <p className="mt-4 max-w-xs leading-relaxed text-muted-foreground">
-        I build cloud infrastructure from zero, deploy AI-powered microservices on AWS, and automate everything — 99.8% uptime, 20+ CI/CD pipelines, 863 commits on my latest project.
-      </p>
+      <p className="mt-4 max-w-xs leading-relaxed text-muted-foreground">{data.tagline}</p>
 
       <div className="mt-6">
         <a
-          href="/Yohans_Bekele_Resume_AIOps.pdf"
+          href={data.resumeUrl}
           download
           className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
         >
@@ -40,7 +48,7 @@ export function Hero() {
 
       <div className="mt-6 flex items-center gap-5">
         <a
-          href="https://github.com/johnbekele"
+          href={data.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground transition-colors hover:text-primary"
@@ -49,7 +57,7 @@ export function Hero() {
           <Github className="h-5 w-5" />
         </a>
         <a
-          href="https://www.linkedin.com/in/yohans-b-a1a975205/"
+          href={data.linkedinUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground transition-colors hover:text-primary"
@@ -58,7 +66,7 @@ export function Hero() {
           <Linkedin className="h-5 w-5" />
         </a>
         <a
-          href="mailto:yohansdemisie@gmail.com"
+          href={`mailto:${data.email}`}
           className="text-muted-foreground transition-colors hover:text-primary"
           aria-label="Email"
         >

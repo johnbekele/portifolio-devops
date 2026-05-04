@@ -5,7 +5,14 @@
 
 # next.js
 /.next/
+/.next copy/
 /out/
+
+# editor
+/.vscode/
+
+# internal / work docs
+/MAIA-*.md
 
 # production
 /build
@@ -18,6 +25,7 @@ yarn-error.log*
 
 # env files
 .env*
+!.env*.example
 
 # vercel
 .vercel
