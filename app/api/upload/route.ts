@@ -18,8 +18,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing file" }, { status: 400 })
   }
 
-  if (file.size > 8 * 1024 * 1024) {
-    return NextResponse.json({ error: "File too large (max 8MB)" }, { status: 413 })
+  if (file.size > 12 * 1024 * 1024) {
+    return NextResponse.json({ error: "File too large (max 12MB)" }, { status: 413 })
   }
 
   if (!hasBlobToken()) {

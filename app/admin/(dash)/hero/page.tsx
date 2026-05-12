@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { FormField, FormSection, FormActions } from "@/components/admin/form-field"
 import { RichTextField } from "@/components/admin/rich-text-field"
 import { HeroProfileImageField } from "./profile-image-field"
+import { HeroResumeField } from "./resume-field"
 import { getHero } from "@/lib/data/hero"
 import { saveHero } from "@/lib/actions/hero"
 
@@ -52,8 +53,8 @@ export default async function HeroAdminPage({ searchParams }: HeroAdminProps) {
             />
           </FormField>
 
-          <FormField label="Resume URL" htmlFor="resumeUrl">
-            <Input id="resumeUrl" name="resumeUrl" defaultValue={data?.resumeUrl ?? "/Yohans_Bekele_Resume.pdf"} />
+          <FormField label="Resume" hint="PDF stored in Vercel Blob. Upload to replace, or delete to fall back to the bundled default.">
+            <HeroResumeField defaultValue={data?.resumeUrl ?? "/Yohans_Bekele_Resume.pdf"} />
           </FormField>
 
           <FormField label="GitHub URL" htmlFor="githubUrl">
