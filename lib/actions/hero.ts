@@ -23,6 +23,7 @@ export async function saveHero(formData: FormData) {
     profileImageUrl: parseStr(formData.get("profileImageUrl"), "/images/profile.jpg"),
     location: parseStr(formData.get("location")),
     contactBlurb: parseStr(formData.get("contactBlurb")),
+    ctaUrl: parseStr(formData.get("ctaUrl")),
     updatedAt: new Date(),
   }
 

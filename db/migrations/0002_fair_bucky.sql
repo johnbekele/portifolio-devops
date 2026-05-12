@@ -1,0 +1,1 @@
+ALTER TABLE `hero` ADD `cta_url` text DEFAULT '' NOT NULL;

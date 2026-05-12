@@ -14,6 +14,7 @@ export const hero = sqliteTable("hero", {
   profileImageUrl: text("profile_image_url").notNull().default("/images/profile.jpg"),
   location: text("location").notNull().default("Gdansk, Poland"),
   contactBlurb: text("contact_blurb").notNull().default(""),
+  ctaUrl: text("cta_url").notNull().default(""),
   updatedAt: integer("updated_at", { mode: "timestamp_ms" })
     .notNull()
     .default(sql`(unixepoch() * 1000)`),

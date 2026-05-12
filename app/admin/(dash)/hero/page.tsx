@@ -57,6 +57,19 @@ export default async function HeroAdminPage({ searchParams }: HeroAdminProps) {
             <HeroResumeField defaultValue={data?.resumeUrl ?? "/Yohans_Bekele_Resume.pdf"} />
           </FormField>
 
+          <FormField
+            label="See My Work button URL"
+            htmlFor="ctaUrl"
+            hint='Where the hero CTA points. Leave blank to scroll to the Projects section. Use an anchor like "#work" for in-page jumps, or a full URL like "https://github.com/johnbekele" to open externally.'
+          >
+            <Input
+              id="ctaUrl"
+              name="ctaUrl"
+              defaultValue={data?.ctaUrl ?? ""}
+              placeholder="#work"
+            />
+          </FormField>
+
           <FormField label="GitHub URL" htmlFor="githubUrl">
             <Input id="githubUrl" name="githubUrl" type="url" defaultValue={data?.githubUrl ?? ""} />
           </FormField>

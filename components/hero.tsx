@@ -20,9 +20,15 @@ export function Hero({ data }: HeroProps) {
     )
   }
 
-  const handleScrollToWork = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const ctaUrl = data.ctaUrl?.trim() || "#work"
+  const isAnchor = ctaUrl.startsWith("#")
+  const isExternal = /^https?:\/\//i.test(ctaUrl)
+
+  const handleCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isAnchor) return
     e.preventDefault()
-    document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })
+    const targetId = ctaUrl.slice(1)
+    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
@@ -66,8 +72,10 @@ export function Hero({ data }: HeroProps) {
 
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <a
-          href="#work"
-          onClick={handleScrollToWork}
+          href={ctaUrl}
+          onClick={handleCtaClick}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
           className="group inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:shadow-primary/40 hover:-translate-y-0.5"
         >
           <Sparkles className="h-4 w-4" />
