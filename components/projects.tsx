@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import {
   ArrowUpRight,
@@ -92,8 +92,8 @@ export function Projects({ projects }: ProjectsProps) {
     return meta[category] ?? { className: "", label: category, dot: "bg-muted-foreground" }
   }
 
-  const featured = filteredProjects.find((p) => p.featured)
-  const rest = filteredProjects.filter((p) => p.id !== featured?.id)
+  const featuredProjects = filteredProjects.filter((p) => p.featured)
+  const rest = filteredProjects.filter((p) => !p.featured)
   const totalCount = projects.length
 
   return (
@@ -139,10 +139,10 @@ export function Projects({ projects }: ProjectsProps) {
         })}
       </div>
 
-      {featured && (
-        <FeaturedProjectCard
-          project={featured}
-          onOpen={() => openModal(featured)}
+      {featuredProjects.length > 0 && (
+        <FeaturedShowcase
+          projects={featuredProjects}
+          onOpen={openModal}
           getCategoryMeta={getCategoryMeta}
         />
       )}
@@ -152,7 +152,7 @@ export function Projects({ projects }: ProjectsProps) {
           <CaseStudyCard
             key={project.id}
             project={project}
-            index={featured ? idx + 2 : idx + 1}
+            index={featuredProjects.length > 0 ? idx + 2 : idx + 1}
             onOpen={() => openModal(project)}
             getCategoryMeta={getCategoryMeta}
           />
@@ -355,32 +355,101 @@ export function Projects({ projects }: ProjectsProps) {
   )
 }
 
-interface CardProps {
-  project: Project
-  onOpen: () => void
-  getCategoryMeta: (cat: string) => { className: string; label: string; dot: string }
+type CategoryMeta = { className: string; label: string; dot: string }
+
+interface FeaturedShowcaseProps {
+  projects: Project[]
+  onOpen: (project: Project) => void
+  getCategoryMeta: (cat: string) => CategoryMeta
 }
 
-function FeaturedProjectCard({ project, onOpen, getCategoryMeta }: CardProps) {
+const IMAGE_INTERVAL_MS = 3500
+const PROJECT_HOLD_MS = 9000
+
+function FeaturedShowcase({ projects, onOpen, getCategoryMeta }: FeaturedShowcaseProps) {
+  const [projectIdx, setProjectIdx] = useState(0)
+  const [imageIdx, setImageIdx] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const lastProjectAdvance = useRef<number>(Date.now())
+
+  const project = projects[projectIdx] ?? projects[0]
   const meta = getCategoryMeta(project.category)
-  const firstImage = project.images[0]
+  const images = project.images.length > 0 ? project.images : [{ src: "", alt: "" }]
+  const hasMultipleImages = images.length > 1
+  const hasMultipleProjects = projects.length > 1
+
+  useEffect(() => {
+    setImageIdx(0)
+    lastProjectAdvance.current = Date.now()
+  }, [projectIdx])
+
+  useEffect(() => {
+    if (isPaused) return
+    if (!hasMultipleImages && !hasMultipleProjects) return
+
+    const id = setInterval(() => {
+      const now = Date.now()
+      const heldLongEnough = now - lastProjectAdvance.current >= PROJECT_HOLD_MS
+
+      setImageIdx((curr) => {
+        const next = curr + 1
+        if (next >= images.length) {
+          if (hasMultipleProjects && heldLongEnough) {
+            setProjectIdx((p) => (p + 1) % projects.length)
+            return 0
+          }
+          return 0
+        }
+        return next
+      })
+    }, IMAGE_INTERVAL_MS)
+
+    return () => clearInterval(id)
+  }, [isPaused, hasMultipleImages, hasMultipleProjects, images.length, projects.length, projectIdx])
+
+  const handleSelectProject = (idx: number) => {
+    if (idx === projectIdx) return
+    setProjectIdx(idx)
+  }
+
+  const handleSelectImage = (idx: number) => {
+    setImageIdx(idx)
+    lastProjectAdvance.current = Date.now()
+  }
+
   return (
     <article
-      onClick={onOpen}
+      onClick={() => onOpen(project)}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
       className="group relative cursor-pointer overflow-hidden rounded-2xl border border-border bg-card/60 transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
     >
       <div className="absolute -top-px left-6 right-6 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
 
       <div className="relative aspect-[16/9] overflow-hidden bg-secondary">
-        {firstImage && (
-          <Image
-            src={firstImage.src}
-            alt={firstImage.alt ?? `${project.title} screenshot`}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            priority
-          />
-        )}
+        {images.map((img, i) => (
+          <div
+            key={`${project.id}-${i}-${img.src}`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              i === imageIdx ? "opacity-100" : "opacity-0"
+            }`}
+            aria-hidden={i !== imageIdx}
+          >
+            {img.src && (
+              <Image
+                src={img.src}
+                alt={img.alt ?? `${project.title} screenshot ${i + 1}`}
+                fill
+                className={`object-cover transition-transform duration-[6000ms] ease-out ${
+                  i === imageIdx ? "scale-105" : "scale-100"
+                }`}
+                priority={i === 0 && projectIdx === 0}
+                sizes="(min-width: 1024px) 720px, 100vw"
+              />
+            )}
+          </div>
+        ))}
+
         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
 
         <div className="absolute top-4 left-4 flex items-center gap-2">
@@ -397,17 +466,46 @@ function FeaturedProjectCard({ project, onOpen, getCategoryMeta }: CardProps) {
           </Badge>
         </div>
 
-        {project.images.length > 1 && (
-          <div className="absolute bottom-4 right-4 rounded-md bg-background/80 px-2 py-1 text-xs text-foreground backdrop-blur">
-            +{project.images.length - 1} more
+        {hasMultipleImages && (
+          <div
+            className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {images.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => handleSelectImage(i)}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === imageIdx
+                    ? "w-6 bg-primary"
+                    : "w-1.5 bg-foreground/40 hover:bg-foreground/70"
+                }`}
+                aria-label={`Show image ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
+
+        {hasMultipleImages && (
+          <div className="pointer-events-none absolute bottom-3 right-3 rounded-md bg-background/80 px-2 py-0.5 text-[10px] font-mono text-foreground backdrop-blur">
+            {String(imageIdx + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
           </div>
         )}
       </div>
 
-      <div className="p-6 sm:p-8">
+      <div key={project.id} className="p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-2 duration-700">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-mono text-muted-foreground mb-2">SPOTLIGHT / 01</p>
+            <p className="text-xs font-mono text-muted-foreground mb-2">
+              SPOTLIGHT / {String(projectIdx + 1).padStart(2, "0")}
+              {hasMultipleProjects && (
+                <span className="text-muted-foreground/60">
+                  {" "}
+                  of {String(projects.length).padStart(2, "0")}
+                </span>
+              )}
+            </p>
             <h3 className="text-2xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-3xl">
               {project.title}
             </h3>
@@ -435,12 +533,12 @@ function FeaturedProjectCard({ project, onOpen, getCategoryMeta }: CardProps) {
           )}
         </div>
 
-        <div className="mt-6 flex items-center gap-3">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation()
-              onOpen()
+              onOpen(project)
             }}
             className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90"
           >
@@ -472,13 +570,55 @@ function FeaturedProjectCard({ project, onOpen, getCategoryMeta }: CardProps) {
             </a>
           )}
         </div>
+
+        {hasMultipleProjects && (
+          <div
+            className="mt-6 flex items-center gap-2 border-t border-border/60 pt-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70">
+              Featured
+            </span>
+            <div className="flex flex-1 items-center gap-1.5">
+              {projects.map((p, i) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => handleSelectProject(i)}
+                  className={`group/dot relative h-1 flex-1 overflow-hidden rounded-full bg-muted transition-colors hover:bg-muted/80`}
+                  aria-label={`Show ${p.title}`}
+                  title={p.title}
+                >
+                  <span
+                    className={`absolute inset-y-0 left-0 rounded-full bg-primary transition-all ${
+                      i < projectIdx
+                        ? "w-full opacity-60"
+                        : i === projectIdx
+                          ? isPaused
+                            ? "w-1/2"
+                            : "w-full animate-[showcase-progress_9s_linear_forwards]"
+                          : "w-0"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+            <span className="font-mono text-[10px] tabular-nums text-muted-foreground/70">
+              {String(projectIdx + 1).padStart(2, "0")}/
+              {String(projects.length).padStart(2, "0")}
+            </span>
+          </div>
+        )}
       </div>
     </article>
   )
 }
 
-interface CaseStudyCardProps extends CardProps {
+interface CaseStudyCardProps {
+  project: Project
   index: number
+  onOpen: () => void
+  getCategoryMeta: (cat: string) => CategoryMeta
 }
 
 function CaseStudyCard({ project, index, onOpen, getCategoryMeta }: CaseStudyCardProps) {

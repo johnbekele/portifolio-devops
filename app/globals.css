@@ -126,3 +126,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes showcase-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
