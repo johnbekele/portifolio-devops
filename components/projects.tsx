@@ -369,8 +369,8 @@ interface FeaturedShowcaseProps {
   getCategoryMeta: (cat: string) => CategoryMeta
 }
 
-const IMAGE_INTERVAL_MS = 3500
-const PROJECT_HOLD_MS = 9000
+const IMAGE_INTERVAL_MS = 2200
+const PROJECT_HOLD_MS = 6000
 
 function FeaturedShowcase({ projects, onOpen, getCategoryMeta }: FeaturedShowcaseProps) {
   const [projectIdx, setProjectIdx] = useState(0)
@@ -439,7 +439,7 @@ function FeaturedShowcase({ projects, onOpen, getCategoryMeta }: FeaturedShowcas
         {images.map((img, i) => (
           <div
             key={`${project.id}-${i}-${img.src}`}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
               i === imageIdx ? "opacity-100" : "opacity-0"
             }`}
             aria-hidden={i !== imageIdx}
@@ -449,7 +449,7 @@ function FeaturedShowcase({ projects, onOpen, getCategoryMeta }: FeaturedShowcas
                 src={img.src}
                 alt={img.alt ?? `${project.title} screenshot ${i + 1}`}
                 fill
-                className={`object-cover transition-transform duration-[6000ms] ease-out ${
+                className={`object-cover transition-transform duration-[4000ms] ease-out ${
                   i === imageIdx ? "scale-105" : "scale-100"
                 }`}
                 priority={i === 0 && projectIdx === 0}
@@ -610,7 +610,7 @@ function FeaturedShowcase({ projects, onOpen, getCategoryMeta }: FeaturedShowcas
                         : i === projectIdx
                           ? isPaused
                             ? "w-1/2"
-                            : "w-full animate-[showcase-progress_9s_linear_forwards]"
+                            : "w-full animate-[showcase-progress_6s_linear_forwards]"
                           : "w-0"
                     }`}
                   />
