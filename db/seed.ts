@@ -11,6 +11,8 @@ import {
   certifications,
 } from "./schema"
 
+type ProjectCategory = "devops" | "fullstack" | "llm"
+
 async function main() {
   const url = process.env.TURSO_DATABASE_URL
   const authToken = process.env.TURSO_AUTH_TOKEN
@@ -173,6 +175,7 @@ async function main() {
       sortOrder: 0,
       title: "Archyra",
       category: "fullstack" as const,
+      categories: ["fullstack", "devops"] satisfies ProjectCategory[] as ProjectCategory[],
       description:
         "One npm package: 25 animated React components, an AWS architecture designer that exports Terraform/Pulumi, and an MCP server so Claude, Cursor, and Windsurf can install components for you.",
       longDescription:
@@ -196,6 +199,7 @@ async function main() {
       sortOrder: 1,
       title: "InfraCanvas",
       category: "devops" as const,
+      categories: ["devops", "fullstack"] satisfies ProjectCategory[] as ProjectCategory[],
       description:
         "Drag-and-drop AWS architecture in the browser. Exports Terraform or Pulumi, pushes to your GitHub repo, and writes the GitHub Actions workflow to deploy it.",
       longDescription:
@@ -218,6 +222,7 @@ async function main() {
       sortOrder: 2,
       title: "Wise Trade",
       category: "llm" as const,
+      categories: ["llm", "fullstack", "devops"] satisfies ProjectCategory[] as ProjectCategory[],
       description:
         "Trading dashboard with live watchlists, top gainers/laggards, high-volume scans, and an AI insights endpoint behind a tiered API.",
       longDescription:
@@ -232,6 +237,7 @@ async function main() {
       sortOrder: 3,
       title: "AgroTech",
       category: "fullstack" as const,
+      categories: ["fullstack"] satisfies ProjectCategory[] as ProjectCategory[],
       description:
         "Two-sided marketplace for renting farm equipment: owners list machinery, farmers browse, book a date range, and return when done.",
       longDescription:
@@ -246,6 +252,7 @@ async function main() {
       sortOrder: 4,
       title: "LawConnect",
       category: "fullstack" as const,
+      categories: ["fullstack"] satisfies ProjectCategory[] as ProjectCategory[],
       description:
         "Case management for advocates: cases, fees and invoices, a client portal, and a calendar that won't let a deadline slip.",
       longDescription:
@@ -260,6 +267,7 @@ async function main() {
       sortOrder: 5,
       title: "Book & Memories",
       category: "fullstack" as const,
+      categories: ["fullstack"] satisfies ProjectCategory[] as ProjectCategory[],
       description:
         "Social app for readers — share books, the notes you took, and the memory attached to them. Email/password, Google, and Apple sign-in.",
       longDescription:
@@ -274,6 +282,7 @@ async function main() {
       sortOrder: 6,
       title: "Crypto Info Finder",
       category: "fullstack" as const,
+      categories: ["fullstack"] satisfies ProjectCategory[] as ProjectCategory[],
       description:
         "Type a coin name, get live market data back. Single-page React app over a public crypto API with a dark, retro UI.",
       longDescription:

@@ -6,6 +6,7 @@ export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number]
 export interface GeneratedProject {
   title: string
   category: ProjectCategory
+  categories: ProjectCategory[]
   description: string
   longDescription: string
   technologies: string[]
@@ -29,7 +30,7 @@ Rules:
     * Use **bold** sparingly to highlight key numbers or technologies.
     * Keep total length under ~150 words.
 - "technologies" is a deduped array of short labels (e.g. "Next.js", "AWS Lambda", "Postgres"). 4-10 items.
-- "category" must be exactly one of: "devops" (infra, IaC, CI/CD, observability tools), "fullstack" (web/mobile apps with both frontend and backend), "llm" (AI/LLM-powered apps).
+- "categories" must be a non-empty array of 1-3 values from: "devops" (infra, IaC, CI/CD, observability tools), "fullstack" (web/mobile apps with both frontend and backend), "llm" (AI/LLM-powered apps). Pick all that genuinely apply — many projects span multiple. The first item should be the strongest fit (it drives the badge color).
 - Never invent github_url or demo_url; the engineer fills those.
 - Output ONLY via the fill_project tool. No prose.`
 
@@ -68,9 +69,16 @@ export async function generateProjectFields(input: GenerateInput): Promise<Gener
           type: "object",
           properties: {
             title: { type: "string", description: "Short project name (1-4 words)." },
-            category: {
-              type: "string",
-              enum: ["devops", "fullstack", "llm"],
+            categories: {
+              type: "array",
+              items: {
+                type: "string",
+                enum: ["devops", "fullstack", "llm"],
+              },
+              minItems: 1,
+              maxItems: 3,
+              description:
+                "All categories that genuinely apply. First item is the primary one and drives the card badge color.",
             },
             description: {
               type: "string",
@@ -86,7 +94,7 @@ export async function generateProjectFields(input: GenerateInput): Promise<Gener
               description: "4-10 short tech labels.",
             },
           },
-          required: ["title", "category", "description", "longDescription", "technologies"],
+          required: ["title", "categories", "description", "longDescription", "technologies"],
         },
       },
     ],
@@ -101,10 +109,9 @@ export async function generateProjectFields(input: GenerateInput): Promise<Gener
     throw new Error("Model did not return a fill_project tool call")
   }
 
-  const data = toolUse.input as Partial<GeneratedProject>
+  const data = toolUse.input as Partial<GeneratedProject> & { categories?: unknown }
   if (
     typeof data.title !== "string" ||
-    typeof data.category !== "string" ||
     typeof data.description !== "string" ||
     typeof data.longDescription !== "string" ||
     !Array.isArray(data.technologies)
@@ -112,13 +119,25 @@ export async function generateProjectFields(input: GenerateInput): Promise<Gener
     throw new Error("Model returned malformed project payload")
   }
 
-  const category = (PROJECT_CATEGORIES as readonly string[]).includes(data.category)
-    ? (data.category as ProjectCategory)
-    : "fullstack"
+  const rawCats = Array.isArray(data.categories)
+    ? (data.categories as unknown[])
+    : typeof data.category === "string"
+      ? [data.category]
+      : []
+
+  const seen = new Set<ProjectCategory>()
+  for (const c of rawCats) {
+    if (typeof c === "string" && (PROJECT_CATEGORIES as readonly string[]).includes(c)) {
+      seen.add(c as ProjectCategory)
+    }
+  }
+  const categories: ProjectCategory[] = seen.size > 0 ? Array.from(seen) : ["fullstack"]
+  const category: ProjectCategory = categories[0]
 
   return {
     title: data.title,
     category,
+    categories,
     description: data.description,
     longDescription: data.longDescription,
     technologies: data.technologies.filter((t): t is string => typeof t === "string"),

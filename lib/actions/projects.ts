@@ -19,19 +19,39 @@ import {
 const ALLOWED_CATEGORIES = ["devops", "fullstack", "llm"] as const
 type Category = (typeof ALLOWED_CATEGORIES)[number]
 
+function normalizeCategories(formData: FormData): Category[] {
+  const raw = formData.getAll("categories")
+  const seen = new Set<Category>()
+  for (const value of raw) {
+    if (
+      typeof value === "string" &&
+      (ALLOWED_CATEGORIES as readonly string[]).includes(value)
+    ) {
+      seen.add(value as Category)
+    }
+  }
+  if (seen.size === 0) {
+    const fallback = parseStr(formData.get("category"), "fullstack")
+    if ((ALLOWED_CATEGORIES as readonly string[]).includes(fallback)) {
+      seen.add(fallback as Category)
+    } else {
+      seen.add("fullstack")
+    }
+  }
+  return Array.from(seen)
+}
+
 export async function upsertProject(formData: FormData) {
   await requireAdmin()
 
   const id = formData.get("id")
-  const rawCategory = parseStr(formData.get("category"), "fullstack")
-  const category: Category = (ALLOWED_CATEGORIES as readonly string[]).includes(rawCategory)
-    ? (rawCategory as Category)
-    : "fullstack"
+  const categories = normalizeCategories(formData)
 
   const values = {
     sortOrder: parseInt0(formData.get("sortOrder")),
     title: parseStr(formData.get("title")),
-    category,
+    category: categories[0],
+    categories,
     description: parseStr(formData.get("description")),
     longDescription: parseStr(formData.get("longDescription")),
     technologies: parseList(formData.get("technologies")),

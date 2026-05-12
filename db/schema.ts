@@ -42,6 +42,10 @@ export const projects = sqliteTable("projects", {
   sortOrder: integer("sort_order").notNull().default(0),
   title: text("title").notNull(),
   category: text("category", { enum: ["devops", "fullstack", "llm"] }).notNull(),
+  categories: text("categories", { mode: "json" })
+    .notNull()
+    .$type<("devops" | "fullstack" | "llm")[]>()
+    .default(sql`'[]'`),
   description: text("description").notNull(),
   longDescription: text("long_description").notNull(),
   technologies: text("technologies", { mode: "json" }).notNull().$type<string[]>(),

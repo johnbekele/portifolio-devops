@@ -20,6 +20,16 @@ const CATEGORIES = [
 
 type Category = (typeof CATEGORIES)[number]["value"]
 
+function initialCategories(item: Project | null): Category[] {
+  if (item?.categories && item.categories.length > 0) {
+    return item.categories.filter((c): c is Category =>
+      (CATEGORIES.map((x) => x.value) as readonly string[]).includes(c),
+    )
+  }
+  if (item?.category) return [item.category]
+  return ["fullstack"]
+}
+
 interface ProjectFormProps {
   item: Project | null
 }
@@ -27,10 +37,20 @@ interface ProjectFormProps {
 export function ProjectForm({ item }: ProjectFormProps) {
   const [images, setImages] = useState<ProjectImage[]>(item?.images ?? [])
   const [title, setTitle] = useState(item?.title ?? "")
-  const [category, setCategory] = useState<Category>(item?.category ?? "fullstack")
+  const [categories, setCategories] = useState<Category[]>(initialCategories(item))
   const [description, setDescription] = useState(item?.description ?? "")
   const [longDescription, setLongDescription] = useState(item?.longDescription ?? "")
   const [technologies, setTechnologies] = useState(item?.technologies?.join(", ") ?? "")
+
+  function toggleCategory(value: Category) {
+    setCategories((curr) => {
+      if (curr.includes(value)) {
+        const next = curr.filter((c) => c !== value)
+        return next.length === 0 ? curr : next
+      }
+      return [...curr, value]
+    })
+  }
 
   const [aiNotes, setAiNotes] = useState("")
   const [aiBusy, setAiBusy] = useState(false)
@@ -51,7 +71,14 @@ export function ProjectForm({ item }: ProjectFormProps) {
       const data = await res.json()
       if (!res.ok) throw new Error(data.error ?? "Generation failed")
       setTitle(data.title)
-      setCategory(data.category)
+      const aiCats: Category[] = Array.isArray(data.categories)
+        ? data.categories.filter((c: string): c is Category =>
+            (CATEGORIES.map((x) => x.value) as readonly string[]).includes(c),
+          )
+        : data.category
+          ? [data.category as Category]
+          : []
+      if (aiCats.length > 0) setCategories(aiCats)
       setDescription(data.description)
       setLongDescription(data.longDescription)
       setTechnologies(
@@ -68,9 +95,12 @@ export function ProjectForm({ item }: ProjectFormProps) {
     <form action={upsertProject}>
       {item && <input type="hidden" name="id" value={item.id} />}
       <input type="hidden" name="images" value={JSON.stringify(images)} />
+      {categories.map((c) => (
+        <input key={c} type="hidden" name="categories" value={c} />
+      ))}
 
       <FormSection>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <FormField label="Sort order" htmlFor="sortOrder">
             <Input
               id="sortOrder"
@@ -78,21 +108,6 @@ export function ProjectForm({ item }: ProjectFormProps) {
               type="number"
               defaultValue={item?.sortOrder ?? 0}
             />
-          </FormField>
-          <FormField label="Category" htmlFor="category">
-            <select
-              id="category"
-              name="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value as Category)}
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              {CATEGORIES.map((c) => (
-                <option key={c.value} value={c.value}>
-                  {c.label}
-                </option>
-              ))}
-            </select>
           </FormField>
           <div className="space-y-2 pt-7">
             <label className="flex items-center gap-2 text-sm">
@@ -115,6 +130,51 @@ export function ProjectForm({ item }: ProjectFormProps) {
             </label>
           </div>
         </div>
+
+        <FormField
+          label="Categories"
+          hint="Pick one or more. The first one is the primary category used for the badge color."
+        >
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map((c) => {
+              const active = categories.includes(c.value)
+              return (
+                <button
+                  key={c.value}
+                  type="button"
+                  onClick={() => toggleCategory(c.value)}
+                  aria-pressed={active}
+                  className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
+                    active
+                      ? "border-primary bg-primary/15 text-primary"
+                      : "border-border bg-card/40 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  }`}
+                >
+                  <span
+                    className={`flex h-3.5 w-3.5 items-center justify-center rounded-sm border ${
+                      active ? "border-primary bg-primary text-primary-foreground" : "border-border"
+                    }`}
+                  >
+                    {active && (
+                      <svg
+                        className="h-2.5 w-2.5"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M2 6.5l3 3 5-6" />
+                      </svg>
+                    )}
+                  </span>
+                  {c.label}
+                </button>
+              )
+            })}
+          </div>
+        </FormField>
 
         <FormField label="Images">
           <MultiImageUploader value={images} onChange={setImages} prefix="projects" />

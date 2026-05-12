@@ -48,7 +48,11 @@ export default async function ProjectsListPage() {
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-mono text-muted-foreground">#{p.sortOrder}</span>
                   <h3 className="font-medium text-foreground truncate">{p.title}</h3>
-                  <Badge variant="outline" className="text-xs">{p.category}</Badge>
+                  {(p.categories?.length ? p.categories : [p.category]).map((c) => (
+                    <Badge key={c} variant="outline" className="text-xs">
+                      {c}
+                    </Badge>
+                  ))}
                   {p.featured && (
                     <Badge variant="outline" className="text-xs border-accent text-accent">Featured</Badge>
                   )}

@@ -42,8 +42,13 @@ export function Projects({ projects }: ProjectsProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all")
 
+  const projectCategories = (p: Project): string[] =>
+    p.categories && p.categories.length > 0 ? p.categories : [p.category]
+
   const filteredProjects =
-    activeCategory === "all" ? projects : projects.filter((p) => p.category === activeCategory)
+    activeCategory === "all"
+      ? projects
+      : projects.filter((p) => projectCategories(p).includes(activeCategory))
 
   const openModal = (project: Project) => {
     setSelectedProject(project)
@@ -282,14 +287,15 @@ export function Projects({ projects }: ProjectsProps) {
                       <h2 className="text-2xl font-semibold text-foreground">
                         {selectedProject.title}
                       </h2>
-                      {(() => {
-                        const badge = getCategoryMeta(selectedProject.category)
+                      {projectCategories(selectedProject).map((c) => {
+                        const badge = getCategoryMeta(c)
                         return (
-                          <Badge variant="outline" className={badge.className}>
+                          <Badge key={c} variant="outline" className={badge.className}>
+                            <span className={`mr-1.5 inline-block h-1.5 w-1.5 rounded-full ${badge.dot}`} />
                             {badge.label}
                           </Badge>
                         )
-                      })()}
+                      })}
                     </div>
                     {selectedProject.featured && (
                       <Badge variant="outline" className="mt-2 border-accent text-accent">
@@ -373,7 +379,10 @@ function FeaturedShowcase({ projects, onOpen, getCategoryMeta }: FeaturedShowcas
   const lastProjectAdvance = useRef<number>(Date.now())
 
   const project = projects[projectIdx] ?? projects[0]
-  const meta = getCategoryMeta(project.category)
+  const cats =
+    project.categories && project.categories.length > 0
+      ? project.categories
+      : [project.category]
   const images = project.images.length > 0 ? project.images : [{ src: "", alt: "" }]
   const hasMultipleImages = images.length > 1
   const hasMultipleProjects = projects.length > 1
@@ -459,11 +468,16 @@ function FeaturedShowcase({ projects, onOpen, getCategoryMeta }: FeaturedShowcas
           </span>
         </div>
 
-        <div className="absolute top-4 right-4">
-          <Badge variant="outline" className={`${meta.className} backdrop-blur`}>
-            <span className={`mr-1.5 inline-block h-1.5 w-1.5 rounded-full ${meta.dot}`} />
-            {meta.label}
-          </Badge>
+        <div className="absolute top-4 right-4 flex flex-wrap gap-1.5 justify-end max-w-[60%]">
+          {cats.map((c) => {
+            const m = getCategoryMeta(c)
+            return (
+              <Badge key={c} variant="outline" className={`${m.className} backdrop-blur`}>
+                <span className={`mr-1.5 inline-block h-1.5 w-1.5 rounded-full ${m.dot}`} />
+                {m.label}
+              </Badge>
+            )
+          })}
         </div>
 
         {hasMultipleImages && (
@@ -622,7 +636,10 @@ interface CaseStudyCardProps {
 }
 
 function CaseStudyCard({ project, index, onOpen, getCategoryMeta }: CaseStudyCardProps) {
-  const meta = getCategoryMeta(project.category)
+  const cats =
+    project.categories && project.categories.length > 0
+      ? project.categories
+      : [project.category]
   const firstImage = project.images[0]
   const num = String(index).padStart(2, "0")
 
@@ -642,11 +659,20 @@ function CaseStudyCard({ project, index, onOpen, getCategoryMeta }: CaseStudyCar
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-transparent to-transparent" />
 
-        <div className="absolute top-3 right-3">
-          <Badge variant="outline" className={`${meta.className} backdrop-blur text-[10px]`}>
-            <span className={`mr-1 inline-block h-1.5 w-1.5 rounded-full ${meta.dot}`} />
-            {meta.label}
-          </Badge>
+        <div className="absolute top-3 right-3 flex flex-wrap gap-1 justify-end max-w-[70%]">
+          {cats.map((c) => {
+            const m = getCategoryMeta(c)
+            return (
+              <Badge
+                key={c}
+                variant="outline"
+                className={`${m.className} backdrop-blur text-[10px]`}
+              >
+                <span className={`mr-1 inline-block h-1.5 w-1.5 rounded-full ${m.dot}`} />
+                {m.label}
+              </Badge>
+            )
+          })}
         </div>
 
         <div className="absolute top-3 left-3 font-mono text-xs text-foreground/90 backdrop-blur">
