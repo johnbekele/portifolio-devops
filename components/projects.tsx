@@ -370,7 +370,7 @@ interface FeaturedShowcaseProps {
 }
 
 const IMAGE_INTERVAL_MS = 2200
-const PROJECT_HOLD_MS = 6000
+const PROJECT_HOLD_MS = 4000
 
 function FeaturedShowcase({ projects, onOpen, getCategoryMeta }: FeaturedShowcaseProps) {
   const [projectIdx, setProjectIdx] = useState(0)
@@ -610,7 +610,7 @@ function FeaturedShowcase({ projects, onOpen, getCategoryMeta }: FeaturedShowcas
                         : i === projectIdx
                           ? isPaused
                             ? "w-1/2"
-                            : "w-full animate-[showcase-progress_6s_linear_forwards]"
+                            : "w-full animate-[showcase-progress_4s_linear_forwards]"
                           : "w-0"
                     }`}
                   />
