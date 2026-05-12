@@ -61,13 +61,13 @@ export default async function HeroAdminPage({ searchParams }: HeroAdminProps) {
             <FormField
               label="Hero button label"
               htmlFor="ctaLabel"
-              hint='What the primary CTA says. e.g. "See My Open Source", "Try My Latest Project", "Explore Archyra".'
+              hint='What the primary CTA says. e.g. "Checkout My Open Source", "Try My Latest Project", "Explore Archyra".'
             >
               <Input
                 id="ctaLabel"
                 name="ctaLabel"
-                defaultValue={data?.ctaLabel ?? "See My Open Source"}
-                placeholder="See My Open Source"
+                defaultValue={data?.ctaLabel ?? "Checkout My Open Source"}
+                placeholder="Checkout My Open Source"
               />
             </FormField>
 

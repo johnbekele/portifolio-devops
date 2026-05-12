@@ -24,7 +24,7 @@ export async function saveHero(formData: FormData) {
     location: parseStr(formData.get("location")),
     contactBlurb: parseStr(formData.get("contactBlurb")),
     ctaUrl: parseStr(formData.get("ctaUrl")),
-    ctaLabel: parseStr(formData.get("ctaLabel"), "See My Open Source"),
+    ctaLabel: parseStr(formData.get("ctaLabel"), "Checkout My Open Source"),
     updatedAt: new Date(),
   }
 

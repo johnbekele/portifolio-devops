@@ -15,7 +15,7 @@ export const hero = sqliteTable("hero", {
   location: text("location").notNull().default("Gdansk, Poland"),
   contactBlurb: text("contact_blurb").notNull().default(""),
   ctaUrl: text("cta_url").notNull().default(""),
-  ctaLabel: text("cta_label").notNull().default("See My Open Source"),
+  ctaLabel: text("cta_label").notNull().default("Checkout My Open Source"),
   updatedAt: integer("updated_at", { mode: "timestamp_ms" })
     .notNull()
     .default(sql`(unixepoch() * 1000)`),
