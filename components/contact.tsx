@@ -28,9 +28,18 @@ export function Contact({ email, githubUrl, linkedinUrl, blurb, name }: ContactP
 
   return (
     <div>
-      <h2 className="text-sm font-semibold uppercase tracking-widest text-primary mb-8 lg:hidden">
-        Contact
-      </h2>
+      <div className="mb-8 lg:mb-10">
+        <div className="flex items-center gap-3 mb-3">
+          <span className="font-mono text-xs text-primary">06</span>
+          <span className="h-px w-8 bg-primary/40" />
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            Let&apos;s Talk
+          </span>
+        </div>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          Got a project in mind?
+        </h2>
+      </div>
 
       <div className="mb-8">
         <p className="text-muted-foreground leading-relaxed">{blurb}</p>

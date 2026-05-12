@@ -8,20 +8,29 @@ interface CertificationsProps {
 export function Certifications({ certifications }: CertificationsProps) {
   return (
     <div>
-      <h2 className="text-sm font-semibold uppercase tracking-widest text-primary mb-8 lg:hidden">
-        Certifications
-      </h2>
+      <div className="mb-8 lg:mb-10">
+        <div className="flex items-center gap-3 mb-3">
+          <span className="font-mono text-xs text-primary">05</span>
+          <span className="h-px w-8 bg-primary/40" />
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            Verified
+          </span>
+        </div>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          Certifications
+        </h2>
+      </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {certifications.map((cert) => (
           <a
             key={cert.id}
             href={cert.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-start gap-4 rounded-lg border border-border bg-card/50 p-4 transition-all hover:bg-card hover:border-primary/30"
+            className="group flex items-start gap-4 rounded-lg border border-border bg-card/40 p-4 transition-all hover:bg-card hover:border-primary/40 hover:-translate-y-0.5"
           >
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
               <Award className="h-6 w-6" />
             </div>
 
