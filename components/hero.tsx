@@ -21,6 +21,7 @@ export function Hero({ data }: HeroProps) {
   }
 
   const ctaUrl = data.ctaUrl?.trim() || "#work"
+  const ctaLabel = data.ctaLabel?.trim() || "See My Open Source"
   const isAnchor = ctaUrl.startsWith("#")
   const isExternal = /^https?:\/\//i.test(ctaUrl)
 
@@ -79,7 +80,7 @@ export function Hero({ data }: HeroProps) {
           className="group inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:shadow-primary/40 hover:-translate-y-0.5"
         >
           <Sparkles className="h-4 w-4" />
-          See My Work
+          {ctaLabel}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </a>
 

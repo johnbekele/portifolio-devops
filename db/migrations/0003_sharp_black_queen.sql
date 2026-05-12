@@ -1,0 +1,1 @@
+ALTER TABLE `hero` ADD `cta_label` text DEFAULT 'See My Open Source' NOT NULL;

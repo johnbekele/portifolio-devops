@@ -57,18 +57,33 @@ export default async function HeroAdminPage({ searchParams }: HeroAdminProps) {
             <HeroResumeField defaultValue={data?.resumeUrl ?? "/Yohans_Bekele_Resume.pdf"} />
           </FormField>
 
-          <FormField
-            label="See My Work button URL"
-            htmlFor="ctaUrl"
-            hint='Where the hero CTA points. Leave blank to scroll to the Projects section. Use an anchor like "#work" for in-page jumps, or a full URL like "https://github.com/johnbekele" to open externally.'
-          >
-            <Input
-              id="ctaUrl"
-              name="ctaUrl"
-              defaultValue={data?.ctaUrl ?? ""}
-              placeholder="#work"
-            />
-          </FormField>
+          <div className="grid gap-4 md:grid-cols-2">
+            <FormField
+              label="Hero button label"
+              htmlFor="ctaLabel"
+              hint='What the primary CTA says. e.g. "See My Open Source", "Try My Latest Project", "Explore Archyra".'
+            >
+              <Input
+                id="ctaLabel"
+                name="ctaLabel"
+                defaultValue={data?.ctaLabel ?? "See My Open Source"}
+                placeholder="See My Open Source"
+              />
+            </FormField>
+
+            <FormField
+              label="Hero button URL"
+              htmlFor="ctaUrl"
+              hint='Where the button points. Leave blank to scroll to Projects. Use "#work" / "#contact" for in-page sections, or a full URL to open externally.'
+            >
+              <Input
+                id="ctaUrl"
+                name="ctaUrl"
+                defaultValue={data?.ctaUrl ?? ""}
+                placeholder="https://github.com/johnbekele/archyra-oss"
+              />
+            </FormField>
+          </div>
 
           <FormField label="GitHub URL" htmlFor="githubUrl">
             <Input id="githubUrl" name="githubUrl" type="url" defaultValue={data?.githubUrl ?? ""} />
