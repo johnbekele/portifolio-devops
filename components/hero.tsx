@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { Github, Linkedin, Mail, ArrowRight, FileDown, Sparkles } from "lucide-react"
 import type { Hero as HeroData } from "@/db/schema"
 
@@ -26,15 +27,32 @@ export function Hero({ data }: HeroProps) {
 
   return (
     <div>
-      <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-        </span>
-        Available for new opportunities
+      <div className="mb-6 flex items-center gap-4">
+        <div className="relative shrink-0">
+          <div className="absolute -inset-1 bg-gradient-to-br from-primary via-accent to-primary rounded-full opacity-70 blur-sm" />
+          <div className="relative h-20 w-20 rounded-full overflow-hidden border-2 border-background shadow-xl ring-1 ring-border">
+            <Image
+              src={data.profileImageUrl || "/images/profile.jpg"}
+              alt={data.name ? `Portrait of ${data.name}` : "Profile photo"}
+              fill
+              className="object-cover"
+              priority
+              sizes="80px"
+            />
+          </div>
+          <div className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-emerald-500 border-2 border-background" />
+        </div>
+
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+          </span>
+          Available for new opportunities
+        </div>
       </div>
 
-      <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
+      <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
         {data.name}
       </h1>
 
